@@ -9,17 +9,18 @@
 </form>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue'
+export default defineComponent({
     data() {
         return {
             newTaskText: '',
             newTaskDescription: '', // ДОБАВЛЕНО
-            dueDate: null,
+            dueDate: null as string | null,
         }
     },
     methods: {
-        addTask() {
+        addTask(): void {
             if (this.newTaskText.trim()) {
                 // генерируем событие
                 this.$emit('add', this.newTaskText, this.newTaskDescription, this.dueDate); // EDITED
@@ -29,7 +30,7 @@ export default {
             }
         }
     }
-}
+})
 </script>
 
 <style scoped>

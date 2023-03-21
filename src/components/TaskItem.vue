@@ -12,11 +12,20 @@
 </li>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent, PropType } from 'vue';
+
+interface Task {
+    text?: string;
+    description?: string;
+    completed?: boolean;
+    deadline: Date;
+}
+
+export default defineComponent({
     props: {
         task: {
-            type: Object,
+            type: Object as PropType<Task>, // PropType - тип, используемый для определения типов пропсов
             required: true
         },
         index: {
@@ -25,19 +34,19 @@ export default {
         }
     },
     methods: {
-        deleteTask() {
+        deleteTask(): void {
             // генерирую событие и передаю index
             this.$emit('delete', this.index);
         },
-        toggleCompleted() {
+        toggleCompleted(): void {
             // генерирую событие и передаю index
             this.$emit('toggle', this.index);
         },
-        editTaskDescription() {
+        editTaskDescription(): void {
             this.$emit('edit', this.index);
         }
     }
-}
+})
 </script>
 
 <style scoped>

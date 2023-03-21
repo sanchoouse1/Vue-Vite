@@ -6,29 +6,38 @@
 </div>
 </template>
 
-<script>
-import TaskItem from "./TaskItem.vue"
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+import TaskItem from "./TaskItem.vue";
+
+interface Task {
+  text?: string;
+  description?: string;
+  completed?: boolean;
+  deadline: Date;
+}
+
+export default defineComponent({
     components: {TaskItem},
     // принимаем пропсы (как аргумент) из корневого элемента.
     props: {
         tasks: {
-            type: Array,
+            type: Array as () => Task[], // массив объектов типа Task, типы ключей которого заданы в интерфейсе выше
             required: true
         }
     },
     methods: {
-        deleteTask(index) {
+        deleteTask(index: number): void {
             this.$emit("delete", index);
         },
-        toggleCompleted(index) {
+        toggleCompleted(index: number): void {
             this.$emit("toggle", index);
         },
-        editTaskDescription(index) {
+        editTaskDescription(index: number): void {
             this.$emit("edit", index);
         }
     }
-}
+})
 </script>
 
 <style scoped>
