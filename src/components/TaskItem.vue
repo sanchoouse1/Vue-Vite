@@ -16,6 +16,7 @@
 import { defineComponent, PropType } from 'vue';
 
 interface Task {
+    id: string;
     text?: string;
     description?: string;
     completed?: boolean;
@@ -36,14 +37,17 @@ export default defineComponent({
     methods: {
         deleteTask(): void {
             // генерирую событие и передаю index
-            this.$emit('delete', this.index);
+            const taskId = this.task.id;
+            this.$emit('delete', this.index, taskId);
         },
         toggleCompleted(): void {
             // генерирую событие и передаю index
-            this.$emit('toggle', this.index);
+            const taskId = this.task.id;
+            this.$emit('toggle', this.index, taskId);
         },
         editTaskDescription(): void {
-            this.$emit('edit', this.index);
+            const taskId = this.task.id;
+            this.$emit('edit', this.index, taskId);
         }
     }
 })

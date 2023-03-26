@@ -11,10 +11,11 @@ import { defineComponent } from 'vue';
 import TaskItem from "./TaskItem.vue";
 
 interface Task {
-  text?: string;
-  description?: string;
-  completed?: boolean;
-  deadline: Date;
+    id: string;
+    text?: string;
+    description?: string;
+    completed?: boolean;
+    deadline: Date;
 }
 
 export default defineComponent({
@@ -27,14 +28,14 @@ export default defineComponent({
         }
     },
     methods: {
-        deleteTask(index: number): void {
-            this.$emit("delete", index);
+        deleteTask(index: number, taskId: string): void {
+            this.$emit("delete", index, taskId);
         },
-        toggleCompleted(index: number): void {
-            this.$emit("toggle", index);
+        toggleCompleted(index: number, taskId: string): void {
+            this.$emit("toggle", index, taskId);
         },
-        editTaskDescription(index: number): void {
-            this.$emit("edit", index);
+        editTaskDescription(index: number, taskId: string): void {
+            this.$emit("edit", index, taskId, taskId);
         }
     }
 })
